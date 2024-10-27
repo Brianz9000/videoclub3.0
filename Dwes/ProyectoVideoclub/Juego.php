@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 include_once "Soporte.php";
 
 class Juego extends Soporte
@@ -24,7 +26,7 @@ class Juego extends Soporte
         } elseif ($this->minNumJugadores == $this->maxNumJugadores) {
             echo "Para " . $maxNumJugadores . " jugadores";
         } else {
-            echo "De " . $minNumJugadores . " a " . $this->maxNumJugadores . " jugadores";
+            echo "De " . $this->minNumJugadores . " a " . $this->maxNumJugadores . " jugadores";
         }
     }
 

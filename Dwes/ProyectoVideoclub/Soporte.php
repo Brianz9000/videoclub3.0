@@ -1,21 +1,25 @@
 <?php
+
+namespace Dwes\ProyectoVideoclub;
+
 include_once "Resumible.php";
+
 abstract class Soporte implements Resumible
 {
     public $titulo;
-    protected $numero=0;
+    protected $numero = 0;
     private $precio;
 
-    static $contSoporte=0;
+    static $contSoporte = 0;
 
-     const IVA = 1.21;
+    const IVA = 1.21;
 
     public function __construct($titulo, $numero, $precio)
     {
         $this->titulo = $titulo;
         $this->precio = $precio;
         $this->numero = $numero;
-        self::$contSoporte=$numero;
+        self::$contSoporte = $numero;
     }
 
     /**
@@ -26,8 +30,9 @@ abstract class Soporte implements Resumible
         return $this->precio;
     }
 
-    public function getPrecioConIva(){
-        return $this->precio *  self::IVA;
+    public function getPrecioConIva()
+    {
+        return $this->precio * self::IVA;
     }
 
     /**
@@ -49,14 +54,13 @@ abstract class Soporte implements Resumible
     /**
      * @return mixed
      */
-    
+
 
     function muestraResumen()
     {
 
-        echo  "<br>".$this->titulo;
-        echo "<br>".$this->precio." € (IVA no incluido)";
-
+        echo "<br>" . $this->titulo;
+        echo "<br>" . $this->precio . " € (IVA no incluido)";
 
 
     }

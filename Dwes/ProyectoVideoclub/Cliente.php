@@ -1,4 +1,7 @@
 <?php
+ namespace Dwes\ProyectoVideoclub;
+
+ include_once "Soporte.php";
 
 class Cliente
 {
@@ -67,6 +70,7 @@ class Cliente
         } else {
             echo "<br>El cliente ya tiene alquilado el soporte <strong>" . $s->titulo . "</strong>";
         }
+        return $this;
 
     }
 

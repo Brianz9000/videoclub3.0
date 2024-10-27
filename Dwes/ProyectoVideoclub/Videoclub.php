@@ -1,4 +1,6 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 include_once "Juego.php";
 include_once "Dvd.php";
 include_once "CintaVideo.php";
@@ -105,7 +107,7 @@ class Videoclub
         } else {
             echo "error";
         }
-
+            return $this;
 
     }
 
