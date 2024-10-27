@@ -3,16 +3,19 @@
 class Soporte
 {
     public $titulo;
-    protected $numero;
+    protected $numero=0;
     private $precio;
+
+    static $contSoporte=0;
 
      const IVA = 1.21;
 
     public function __construct($titulo, $numero, $precio)
     {
         $this->titulo = $titulo;
-        $this->numero = $numero;
         $this->precio = $precio;
+        $this->numero = $numero;
+        self::$contSoporte=$numero;
     }
 
     /**
@@ -28,12 +31,25 @@ class Soporte
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getNumero()
     {
         return $this->numero;
     }
+
+    /**
+     * @return int
+     */
+    public static function getContSoporte()
+    {
+        return self::$contSoporte;
+    }
+
+    /**
+     * @return mixed
+     */
+    
 
     function muestraResumen()
     {

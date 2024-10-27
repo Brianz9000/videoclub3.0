@@ -8,12 +8,15 @@ class Cliente
     private $numSoportesAlquilados;
     private $maxAlquilerConcurrente;
 
+     static $contCliente=0;
 
-    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3)
+
+    public function __construct($nombre, $maxAlquilerConcurrente = 3)
     {
         $this->nombre = $nombre;
-        $this->numero = $numero;
+        $this->numero = self::getContCliente();
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
+        self::$contCliente++;
     }
 
 
@@ -28,8 +31,13 @@ class Cliente
     }
 
     /**
-     * @return mixed
+     * @return int
      */
+    public static function getContCliente()
+    {
+        return self::$contCliente;
+    }
+
     public function getNumSoportesAlquilados()
     {
         return $this->numSoportesAlquilados;
@@ -48,12 +56,13 @@ class Cliente
         if (!$this->tieneAlquilado($s)) {
             if ($tiene < $this->maxAlquilerConcurrente) {
                 $this->soportesAlquilados[] = $s;
-                $this->numSoportesAlquilados += 1;
 
                 echo "<br><br><strong>Alquilado soporte a: </strong>" . $this->nombre;
                 echo "<br><br>".$s->muestraResumen();
+                $this->numSoportesAlquilados += 1;
+
             } else {
-                echo "<br><br>Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo";
+                echo "<br><br>Este cliente tiene".$this->numSoportesAlquilados." elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo";
             }
         } else {
             echo "<br>El cliente ya tiene alquilado el soporte <strong>" . $s->titulo . "</strong>";
@@ -97,9 +106,10 @@ class Cliente
 
     function muestraResumen()
     {
-        echo "<br>" . $this->nombre;
-        echo "<br>" . count($this->soportesAlquilados);
+        echo "<br><strong> Cliente ".$this->numero.": </strong>" . $this->nombre;
+        echo "<br>Alquileres actuales: " . count($this->soportesAlquilados);
     }
+    //
 
 
 }

@@ -1,4 +1,5 @@
 <?php
+include_once "Soporte.php";
 
 class Juego extends Soporte
 {
@@ -7,9 +8,9 @@ class Juego extends Soporte
     private $minNumJugadores;
     private $maxNumJugadores;
 
-    public function __construct($titulo, $numero, $precio, $consola, $minNumJugadores, $maxNumJugadores)
+    public function __construct($titulo, $precio, $consola, $minNumJugadores, $maxNumJugadores)
     {
-        parent::__construct($titulo, $numero, $precio);
+        parent::__construct($titulo, (self::getContSoporte() + 1), $precio);
         $this->consola = $consola;
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
@@ -29,7 +30,8 @@ class Juego extends Soporte
 
     function muestraResumen()
     {
-        echo "<br>Juego para: " . $this->consola;
+        echo "<br>";
+        echo $this->getNumero() . " .- Juego para: " . $this->consola;
         parent::muestraResumen();
         echo "<br>";
         $this->muestraJugadoresPosibles();
