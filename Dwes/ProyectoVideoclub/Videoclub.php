@@ -153,7 +153,7 @@ class Videoclub
     function existeProducto($numProducto)
     {
         foreach ($this->productos as $producto) {
-            if ($producto->getNumero() == $producto) {
+            if ($producto->getNumero() == $numProducto) {
                 return $producto;
             }
         }
