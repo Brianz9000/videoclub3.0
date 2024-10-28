@@ -1,7 +1,10 @@
 <?php
- namespace Dwes\ProyectoVideoclub;
 
- include_once "Soporte.php";
+namespace Dwes\ProyectoVideoclub;
+use Dwes\ProyectoVideoclub\Util\CupoSuperadoException;
+use Dwes\ProyectoVideoclub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoclub\Util\SoporteYaAlquiladoException;
+include_once "autoload.php";
 
 class Cliente
 {
@@ -11,7 +14,7 @@ class Cliente
     private $numSoportesAlquilados;
     private $maxAlquilerConcurrente;
 
-     static $contCliente=0;
+    static $contCliente = 0;
 
 
     public function __construct($nombre, $maxAlquilerConcurrente = 3)
@@ -61,14 +64,17 @@ class Cliente
                 $this->soportesAlquilados[] = $s;
 
                 echo "<br><br><strong>Alquilado soporte a: </strong>" . $this->nombre;
-                echo "<br><br>".$s->muestraResumen();
+                echo "<br><br>" . $s->muestraResumen();
                 $this->numSoportesAlquilados += 1;
+                $s->setAlquilado(true);
 
             } else {
-                echo "<br><br>Este cliente tiene".$this->numSoportesAlquilados." elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo";
+//                echo "<br><br>Este cliente tiene" . $this->numSoportesAlquilados . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo";
+                throw new CupoSuperadoException("Este cliente tiene" . $this->numSoportesAlquilados . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo");
             }
         } else {
-            echo "<br>El cliente ya tiene alquilado el soporte <strong>" . $s->titulo . "</strong>";
+//            echo "<br>El cliente ya tiene alquilado el soporte <strong>" . $s->titulo . "</strong>";
+            throw new SoporteYaAlquiladoException("El cliente ya tiene alquilado el soporte " . $s->titulo);
         }
         return $this;
 
@@ -85,13 +91,16 @@ class Cliente
             foreach ($this->soportesAlquilados as $s) {
                 if ($s->getNumero() === $nunSoporte) {
                     $objEncontrado += 1;
+                    $s->setAlquilado(false);
                 }
             }
             if ($objEncontrado > -1) {
                 array_splice($this->soportesAlquilados, $objEncontrado, 1);
                 $this->numSoportesAlquilados--;
+
             } else {
-                echo "<br><br>No se ha podido encontrar el soporte en los alquileres de este cliente";
+//                echo "<br><br>No se ha podido encontrar el soporte en los alquileres de este cliente";
+                throw new SoporteNoEncontradoException("No se ha podido encontrar el soporte en los alquileres de este cliente");
             }
         }
     }
@@ -110,7 +119,7 @@ class Cliente
 
     function muestraResumen()
     {
-        echo "<br><strong> Cliente ".$this->numero.": </strong>" . $this->nombre;
+        echo "<br><strong> Cliente " . $this->numero . ": </strong>" . $this->nombre;
         echo "<br>Alquileres actuales: " . count($this->soportesAlquilados);
     }
     //

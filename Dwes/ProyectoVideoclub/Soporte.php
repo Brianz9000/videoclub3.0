@@ -2,13 +2,14 @@
 
 namespace Dwes\ProyectoVideoclub;
 
-include_once "Resumible.php";
+include_once "autoload.php";
 
 abstract class Soporte implements Resumible
 {
     public $titulo;
     protected $numero = 0;
     private $precio;
+    public $alquilado=false;
 
     static $contSoporte = 0;
 
@@ -51,9 +52,15 @@ abstract class Soporte implements Resumible
         return self::$contSoporte;
     }
 
-    /**
-     * @return mixed
-     */
+    public function isAlquilado(): bool
+    {
+        return $this->alquilado;
+    }
+
+    public function setAlquilado(bool $alquilado)
+    {
+        $this->alquilado = $alquilado;
+    }
 
 
     function muestraResumen()
