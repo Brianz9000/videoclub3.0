@@ -2,7 +2,9 @@
 include_once "autoload.php";
 
 use Dwes\ProyectoVideoclub\Juego;
-use Dwes\ProyectoVideoclub\Soporte;// comentado porque ahora es abstracta y no se puede instanciar directamente
+use Dwes\ProyectoVideoclub\Soporte;
+
+// comentado porque ahora es abstracta y no se puede instanciar directamente
 use Dwes\ProyectoVideoclub\CintaVideo;
 use Dwes\ProyectoVideoclub\Dvd;
 
